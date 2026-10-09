@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Motion Assessment</title>
+    <meta
+      name="description"
+      content="Fine-grained human motion assessment via task-specific kinematic experts: a vision-language-kinematic model that recognises exercises, recovers 3D pose, describes movement region by region, and coaches posture in real time."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fine-grained Human Motion Assessment via Task-Specific Kinematic Experts" />
+    <meta
+      property="og:description"
+      content="A vision-language-kinematic model that grows one expert per exercise and coaches posture region by region."
+    />
+    <meta property="og:image" content="https://multimodal-human-sensing.github.io/motion-assessment/media/figures/method-overview.jpg" />
+    <meta property="og:url" content="https://multimodal-human-sensing.github.io/motion-assessment/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f5f4" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <style>
+      html { background: #f3f5f4; }
+      body { opacity: 0; animation: page-failsafe 0s 4s forwards; }
+      html[data-ready] body { opacity: 1; transition: opacity 0.4s ease; }
+      html:not([data-ready]) body * { animation-play-state: paused; }
+      @keyframes page-failsafe { to { opacity: 1; } }
+    </style>
+    <noscript><style>body { opacity: 1; }</style></noscript>
+    <script type="module" crossorigin src="./assets/index-BhSqUXbg.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B-Sj5rPg.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#overview">Skip to content</a>
+
+    <header class="topbar" data-scrolled="false">
+      <div class="topbar__inner">
+        <a class="topbar__brand" href="#top" aria-label="Back to top"><img class="topbar__logo" src="./favicon.svg" alt="" width="34" height="34" /></a>
+        <nav class="topbar__nav" aria-label="Sections">
+          <a href="#overview" data-priority>Overview</a>
+          <a href="#video">Demo</a>
+          <a href="#examples">Examples</a>
+          <a href="#method" data-priority>Methodology</a>
+          <a href="#routing">Routing</a>
+          <a href="#coaching">Coaching</a>
+          <a href="#data">Captions</a>
+          <a href="#results" data-priority>Results</a>
+          <a href="#cite" data-priority>Cite</a>
+        </nav>
+      </div>
+      <div class="progress" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__stage" data-hero-stage>
+          <canvas class="hero__canvas" aria-hidden="true"></canvas>
+          <div class="hero__fallback" hidden>
+            <img src="./media/figures/method-overview.jpg" alt="" />
+          </div>
+          <div class="hud__figure">
+            <ul class="regions" aria-hidden="true">
+              <li class="regions__item" data-region="upper">Upper body</li>
+              <li class="regions__item" data-region="core">Core</li>
+              <li class="regions__item" data-region="lower">Lower body</li>
+            </ul>
+          </div>
+          <aside class="hud__panel" data-hero-panel aria-label="Example feedback for the exercise being shown">
+            <div class="hud__route">
+              <span class="hud__route-label">Routed to Exercise Expert</span>
+              <span class="hud__route-value" data-router-value>Squats</span>
+            </div>
+          </aside>
+        </div>
+
+        <div class="hero__copy wrap">
+          <h1 class="hero__heading" id="hero-title" data-subtitle></h1>
+          <div class="hero__authors" data-authors></div>
+        </div>
+      </section>
+
+      <section class="band" id="overview" aria-labelledby="overview-title">
+        <div class="wrap overview">
+          <div class="overview__main">
+            <h2 id="overview-title">Research Overview</h2>
+            <p class="overview__lede" data-overview-lede></p>
+            <ol class="overview__points" data-overview-points></ol>
+          </div>
+          <div class="overview__results">
+            <h3 class="overview__results-title">Key Results</h3>
+            <dl class="stats" data-facts></dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--sunken" id="video" aria-labelledby="video-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="video-title">See it Coach</h2>
+          </div>
+          <figure class="video" data-video></figure>
+        </div>
+      </section>
+
+      <section class="band" id="examples" aria-labelledby="examples-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="examples-title">Real-World Exercise Examples</h2>
+            <p class="lede">
+              We also evaluate the model on our own recorded exercises to test its reasoning ability on viewpoint variation,
+              partial body truncation and occlusion, non-canonical framing, and exercise variants.
+            </p>
+          </div>
+          <div class="examples" data-examples></div>
+        </div>
+      </section>
+
+      <section class="band band--sunken" id="method" aria-labelledby="method-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="method-title">Architecture</h2>
+            <p class="lede">
+              An exercise video is converted into visual and 3D skeletal features, analyzed across upper body, core,
+              and lower body, and routed to the most relevant kinematic expert for time-aligned feedback. New exercises
+              are learned by initializing from the closest existing expert and training only new regional experts,
+              preserving prior knowledge.
+            </p>
+          </div>
+          <div class="pipeline" data-pipeline>
+            <div class="pipeline__sticky">
+              <div class="pipeline__diagram" data-pipeline-diagram></div>
+            </div>
+            <ol class="pipeline__steps" data-pipeline-steps></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="routing" aria-labelledby="routing-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="routing-title">Expert Selection Mechanism</h2>
+            <p class="lede">
+              Each exercise is modeled as a Gaussian distribution over global motion embeddings. The router selects
+              the expert with minimum Mahalanobis distance to the incoming motion. For a new exercise, the nearest
+              learned expert is used to warm-start a new regional expert set, while existing experts and shared
+              representations remain frozen to preserve prior knowledge.
+            </p>
+          </div>
+          <div class="playground" data-routing>
+            <div class="playground__canvas-wrap">
+              <canvas class="playground__canvas" role="img" aria-label="Animated schematic. Incoming motions are routed to the nearest exercise Gaussian by Mahalanobis distance, then a new exercise is added by copying its nearest expert."></canvas>
+            </div>
+            <div class="playground__side">
+              <p class="playground__stage" data-routing-stage></p>
+              <div class="playground__selected">
+                <span class="playground__selected-label" data-routing-label>Selected expert</span>
+                <strong class="playground__selected-value" data-routing-selected></strong>
+              </div>
+              <p class="playground__metric" data-routing-metric></p>
+              <ol class="distances" data-routing-distances aria-label="Mahalanobis distance to each stored exercise"></ol>
+              <p class="playground__memory" data-routing-memory></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--sunken" id="coaching" aria-labelledby="coaching-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="coaching-title">Real-Time Coaching Analysis</h2>
+            <p class="lede">
+              Frame-aligned comparison between reference coaching and the model’s predictions across long-form exercise
+              sessions, illustrating temporal responsiveness and preservation of corrective intent.
+            </p>
+          </div>
+          <div class="coach" data-coaching></div>
+        </div>
+      </section>
+
+      <section class="band" id="data" aria-labelledby="data-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="data-title">Biomechanically Grounded FLAG3D Fine-grained Captions</h2>
+            <p class="lede">
+              FLAG3D provides one coarse instruction per exercise category. We reconstruct 3D joint trajectories,
+              extract anatomical joint angles and global-motion descriptors, segment each sequence into repetition
+              phases, and generate timestamped captions conditioned on these measured kinematic facts. This converts
+              category-level supervision into repetition-level, biomechanically grounded fine-grained annotations.
+            </p>
+          </div>
+          <div class="captions" data-captions></div>
+        </div>
+      </section>
+
+      <section class="band band--sunken" id="results" aria-labelledby="results-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="results-title">State-of-the-Art Performance Across Motion Understanding Tasks</h2>
+            <p class="lede">
+              Across FLAG3D, HMI, and QEVD-FIT-COACH, our model achieves state-of-the-art and competitive performance
+              across action recognition, absolute 3D pose recovery, fine-grained motion–language alignment, motion
+              captioning, and temporally aligned coaching.
+            </p>
+          </div>
+          <div class="results" data-results></div>
+        </div>
+      </section>
+
+      <section class="band" id="acknowledgements" aria-labelledby="ack-title">
+        <div class="wrap">
+          <div class="band__head">
+            <h2 id="ack-title">Acknowledgements</h2>
+          </div>
+          <div class="ack-row">
+            <div class="ack-card">
+              <img src="./media/brand/nsf.png" alt="U.S. National Science Foundation" width="224" height="225" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--sunken" id="cite" aria-labelledby="cite-title">
+        <div class="wrap cite">
+          <div class="band__head">
+            <h2 id="cite-title">Cite This Work</h2>
+          </div>
+          <div class="cite__grid">
+            <div class="cite__main">
+              <div class="bibtex" data-bibtex></div>
+            </div>
+            <div class="thanks" data-acknowledgements></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="lightbox" data-lightbox aria-label="Figure viewer">
+      <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close figure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <figure class="lightbox__figure">
+        <div class="lightbox__scroller"><img alt="" data-lightbox-img /></div>
+        <figcaption data-lightbox-caption></figcaption>
+      </figure>
+    </dialog>
+
+  </body>
+</html>
